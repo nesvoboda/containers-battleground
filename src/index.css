@@ -1,0 +1,128 @@
+
+:root {
+    --main-bg-color: pink;
+    --title-font-size-xs: 2rem;
+    --title-font-size-s: 2rem;
+    --title-font-size-m: 3rem;
+    --title-font-size-l: 4rem;
+    --title-font-size-xl: 4rem;
+
+    --heading-font-size-xs: 1rem;
+    --heading-font-size-s: 1rem;
+    --heading-font-size-m: 2rem;
+    --heading-font-size-l: 2rem;
+    --heading-font-size-xl: 2rem;
+
+    --paragraph-font-size-xs: 1rem;
+    --paragraph-font-size-s: 1rem;
+    --paragraph-font-size-m: 2rem;
+    --paragraph-font-size-l: 2rem;
+    --paragraph-font-size-xl: 3rem;
+
+
+  }
+
+
+table {
+    border-color: rgba(100, 100, 100, 1) !important;
+    padding: 0.9rem 0.9rem !important;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.9rem 0.9rem !important;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+th {
+    border-color: rgba(170, 170, 170, 1) !important;
+}
+
+.title-font {
+    font-family: 'Libre Barcode 39 Extended Text', cursive;
+    /* font-size: 3rem !important; */
+}
+
+tr {
+    color: white;
+    font-size: 0.7rem !important;
+}
+
+/* Only on xs  */
+@media (max-width: 576px) { 
+    .table-details {
+        display: none !important;
+    }
+
+    .title-font {
+        font-size: var(--title-font-size-xs);
+    }
+    .heading-font-size {
+        font-size: var(--heading-font-size-xs);
+    }
+    
+ }
+
+/* SM  */
+@media (min-width: 576px) { 
+    tr {
+        font-size: 0.5rem !important;
+    }
+    .title-font {
+        font-size: var(--title-font-size-s);
+    }
+    .heading-font-size {
+        font-size: var(--heading-font-size-s);
+    }
+ }
+
+
+/* M  */
+@media (min-width: 768px) { 
+    tr {
+        font-size: 0.5rem !important;
+    }
+    .title-font {
+        font-size: var(--title-font-size-m);
+    }
+    .heading-font-size {
+        font-size: var(--heading-font-size-m);
+    }
+ }
+
+
+/* L  */
+@media (min-width: 992px) { 
+    tr {
+        font-size: 0.9rem !important;
+    }
+    .title-font {
+        font-size: var(--title-font-size-l);
+    }
+    .heading-font-size {
+        font-size: var(--heading-font-size-l);
+    }
+ }
+
+
+/* XL  */
+@media (min-width: 1200px) { 
+    .table {
+        font-size: 1rem;
+    }
+    .title-font {
+        font-size: var(--title-font-size-xl);
+    }
+    .heading-font-size {
+        font-size: var(--heading-font-size-xl);
+    }
+ }
+
+
+@media (min-width: 1400px) { 
+    .table {
+        font-size: 1rem;
+    }
+ }
