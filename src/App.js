@@ -1,10 +1,5 @@
-import logo from "./logo.svg";
 import "./App.css";
 
-import { useState, useEffect } from "react";
-import { supabase } from "./supabaseClient";
-import Auth from "./Auth";
-import Account from "./Account";
 import LoginScreen from "./LoginScreen";
 import HomeScreen from "./HomeScreen";
 
@@ -12,7 +7,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 export default function App() {

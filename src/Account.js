@@ -45,7 +45,7 @@ export default function Account({ session }) {
       setLoading(true);
       const user = supabase.auth.user();
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("requests")
         .insert([{ user_id: user.id, github_url: githubUrl }], {
           returning: "minimal", // Don't return the value after inserting
@@ -91,7 +91,7 @@ export default function Account({ session }) {
 
       */
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("requests")
         .delete()
         .match({ user_id: user.id });

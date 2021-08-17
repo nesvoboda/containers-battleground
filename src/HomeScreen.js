@@ -1,13 +1,11 @@
-import logo from "./logo.svg";
+
 import "./App.css";
 
 import "./index.css";
 import { useState, useEffect } from "react";
 import { supabase } from "./supabaseClient";
-import Auth from "./Auth";
-import Account from "./Account";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function HomeScreen() {
   const [results, setResults] = useState(null);
@@ -32,6 +30,7 @@ export default function HomeScreen() {
   }
 
   async function getResults() {
+    // eslint-disable-next-line no-unused-vars
     const { data, error } = await supabase.from("results").select();
     if (data) {
       console.log(data);
@@ -46,7 +45,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     getResults();
-  }, []);
+  });
 
   return (
     <div>
