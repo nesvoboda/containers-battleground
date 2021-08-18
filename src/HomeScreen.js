@@ -30,10 +30,9 @@ export default function HomeScreen() {
   }
 
   async function getResults() {
-    // eslint-disable-next-line no-unused-vars
-    const { data, error } = await supabase.from("results").select();
+    const { data } = await supabase.from("results").select();
+
     if (data) {
-      console.log(data);
       data.sort((firstEl, secondEl) => {
         let firstSum = timeSum(firstEl);
         let secondSum = timeSum(secondEl);
@@ -52,14 +51,14 @@ export default function HomeScreen() {
       <h3 className="description text-center mb-3 heading-font-size">
         A benchmark for ft_containers (WIP)
       </h3>
-      <div class="text-center">
+      <div className="text-center">
         <Link to="/account" className="text-white">
           <strong>Submit your own version</strong>
         </Link>
       </div>
-      <div class="row justify-content-center mt-5">
-        <div class="col col-md-8">
-          <table class="table table-responsive">
+      <div className="row justify-content-center mt-5">
+        <div className="col col-md-8">
+          <table className="table table-responsive">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -80,12 +79,10 @@ export default function HomeScreen() {
               {results ? (
                 results.map((result, index) => {
                   return (
-                    <tr>
+                    <tr key={result.id}>
                       <td>{index + 1}</td>
-                      <td>
-                        {result.url.slice(
-                          result.url.indexOf("github.com/") + 11
-                        )}
+                      <td>{result.url.slice(
+                          result.url.indexOf("github.com/") + 11)}
                       </td>
                       <td>{timeSumTable(result)}</td>
                       <td className="table-details">
@@ -100,15 +97,13 @@ export default function HomeScreen() {
                     </tr>
                   );
                 })
-              ) : (
-                <p>Loading</p>
-              )}
+              ) : null}
             </tbody>
           </table>
-          <div class="pt-5">
+          <div className="pt-5">
             <h4 className="mt-5 text-center">Notes</h4>
-            <div class="row justify-content-center">
-              <div class="col col-md-8 mt-3 text-center fs-8">
+            <div className="row justify-content-center">
+              <div className="col col-md-8 mt-3 text-center fs-8">
                 <p>The time indicated is CPU seconds.</p>
                 <p>'KO' is either timeout or compilation failure.</p>
                 <p>Results can change as the benchmarks evolve.</p>

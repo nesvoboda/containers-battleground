@@ -3,6 +3,76 @@ import { supabase } from "./supabaseClient";
 
 import { Link } from "react-router-dom";
 
+function Button(props) {
+  return (
+    <div>
+      <button
+        className="button form-control bg-black btn-primary mb-3"
+        onClick={props.onClick}
+        disabled={props.disabled}
+      >
+        {props.text}
+      </button>
+    </div>
+  );
+}
+
+function DangerButton(props) {
+  return (
+    <div>
+      <button
+        className="button form-control bg-black btn-danger mb-3"
+        onClick={props.onClick}
+        disabled={props.disabled}
+      >
+        {props.text}
+      </button>
+    </div>
+  );
+}
+
+function SubmissionForm(props) {
+  return (
+    <div>
+      <div class="mb-3 mt-4">
+        <label htmlFor="email" className="form-label">
+          Your email (won't be publicly visible)
+        </label>
+        <div>
+          <p className="bg-secondary py-2 rounded px-3 bg-opacity-25">
+            {props.session.user.email}
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label htmlFor="github_url" className="form-label">
+          The url to your github repository (<u>will</u> be visible)
+        </label>
+
+        {props.entrySubmitted ? (
+          <div>
+            <p className="bg-secondary py-2 rounded px-3 bg-opacity-25">
+              {props.value}
+            </p>
+          </div>
+        ) : (
+          <input
+            id="github_url"
+            type="github_url"
+            value={props.value}
+            onChange={props.onChange}
+            className="form-control bg-black text-white"
+            placeholder="https://github.com/userName/repoName"
+            disabled={props.entrySubmitted}
+            key="submitFormInput"
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true);
   const [github_url, setGithubUrl] = useState(null);
@@ -26,6 +96,8 @@ export default function Account({ session }) {
       if (error && status !== 406) {
         throw error;
       }
+
+      console.log(data);
 
       if (data) {
         setGithubUrl(data.github_url);
@@ -108,60 +180,6 @@ export default function Account({ session }) {
     }
   }
 
-  function Button(props) {
-    return (
-      <div>
-        <button
-          className="button form-control bg-black btn-primary mb-3"
-          onClick={props.onClick}
-          disabled={props.disabled}
-        >
-          {props.text}
-        </button>
-      </div>
-    );
-  }
-
-  function DangerButton(props) {
-    return (
-      <div>
-        <button
-          className="button form-control bg-black btn-danger mb-3"
-          onClick={props.onClick}
-          disabled={props.disabled}
-        >
-          {props.text}
-        </button>
-      </div>
-    );
-  }
-
-  function SubmissionForm(props)
-  {
-    return (
-    <div>
-          <div class="mb-3 mt-4">
-        <label htmlFor="email" className="form-label">Your email (won't be publicly visible)</label>
-        <input id="email" type="text" className="form-control bg-black text-white" value={session.user.email} disabled />
-      </div>
-
-
-      <div class="mb-3">
-        <label htmlFor="github_url" className="form-label" >The url to your github repository (<u>will</u> be visible)</label>
-        <input
-          id="github_url"
-          type="github_url"
-          value={props.value}
-          onChange={props.onChange}
-          className="form-control bg-black text-white"
-          placeholder="https://github.com/userName/repoName"
-          disabled={entrySubmitted}
-        />
-      </div>
-      </div>
-      );
-  }
-
   return (
     <div className="form-widget">
       <div className="row justify-content-center">
@@ -177,37 +195,50 @@ export default function Account({ session }) {
         </div>
       </div>
 
-
       <div className="row justify-content-center">
-      <div class="col-8">
-      <Link to="/" className="text-white">← Back to results</Link>
+        <div class="col-8">
+          <Link to="/" className="text-white">
+            ← Back to results
+          </Link>
+
+          <SubmissionForm
+            session={session}
+            entrySubmitted={entrySubmitted}
+            value={github_url || ""}
+            onChange={(e) => setGithubUrl(e.target.value)}
+            key="submissionFormComp"
+          />
 
 
-      <SubmissionForm value={github_url || ""} onChange={(e) => setGithubUrl(e.target.value)}/>
+          {entrySubmitted ? (
+            <div>
+            <p>Thanks! We've received your entry. Your results will appear on the main page in ~15 minutes.</p>
+            <p>If you hit 'Erase your entry', we will remove the results from the main page.</p>
+            <DangerButton
+              onClick={() => deleteEntry()}
+              disabled={loading}
+              text={loading ? "Loading ..." : "Erase your entry"}
+              key="DangerButton"
+            />
+            </div>
+          ) : (
+            <Button
+              onClick={() => submitEntry(github_url)}
+              disabled={loading}
+              text={loading ? "Loading ..." : "Submit entry"}
+              key="normButton"
+            />
+          )}
 
-      {entrySubmitted ? (
-        <DangerButton
-          onClick={() => deleteEntry()}
-          disabled={loading}
-          text={loading ? "Loading ..." : "Erase your entry"}
-        />
-      ) : (
-        <Button
-          onClick={() => submitEntry(github_url)}
-          disabled={loading}
-          text={loading ? "Loading ..." : "Submit entry"}
-        />
-      )}
-
-      <div>
-        <button
-          className="button bg-black text-white form-control"
-          onClick={() => supabase.auth.signOut()}
-        >
-          Sign Out
-        </button>
-      </div>
-      </div>
+          <div>
+            <button
+              className="button bg-black text-white form-control"
+              onClick={() => supabase.auth.signOut()}
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
