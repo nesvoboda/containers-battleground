@@ -101,6 +101,15 @@ export default function HomeScreen() {
             </tbody>
           </table>
           <div className="pt-5">
+            <h4 className="mt-5 text-center">How does it work?</h4>
+            <div className="row justify-content-center">
+              <div className="col col-md-8 mt-3 text-center fs-8">
+                <p>The benchmark used is <a href="https://github.com/nesvoboda/containers-benchmark" className="text-white">containers-benchmark</a>.</p>
+                <p><a href="https://github.com/nesvoboda/containers-battleground" className="text-white">Code of this site</a>, <a href="https://github.com/nesvoboda/containers-battleground-backend" className="text-white">backend code</a>.</p>
+              </div>
+            </div>
+          </div>
+          <div className="pb-5">
             <h4 className="mt-5 text-center">Notes</h4>
             <div className="row justify-content-center">
               <div className="col col-md-8 mt-3 text-center fs-8">
@@ -110,7 +119,7 @@ export default function HomeScreen() {
                 <p>Use the e-mail below for questions, requests etc.</p>
               </div>
               <a
-                className="mt-5 text-center text-white"
+                className="mt-5 pb-5 text-center text-white"
                 href="mailto:containers-battleground@altmails.com"
               >
                 Contact us
