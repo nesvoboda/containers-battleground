@@ -10,7 +10,9 @@ An online benchmark for ft_containers
     <a href="https://containers-battleground.netlify.app"><strong>Check it out »</strong></a>
     <br />  </p>
 
+## Benchmark details
 
+The benchmark that is used to display the results is [containers-benchmark](https://github.com/nesvoboda/containers-benchmark).
 
 ## Available Scripts
 
